@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Gestion de Budget{% endblock %}
+
+{% block content %}
+<h1 class="mt-5">Gestion de Budget</h1>
+<div class="mb-3">
+  <a href="{{ url_for('add') }}" class="btn btn-primary">Ajouter une entrée</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th>Catégorie</th>
+        <th>Montant</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in entries %}
+      <tr>
+        <td>{{ entry.date }}</td>
+        <td>{{ entry.category }}</td>
+        <td>{{ entry.amount }}</td>
+        <td>{{ entry.type }}</td>
+        <td>
+          <form action="{{ url_for('delete', entry_id=entry.id) }}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
